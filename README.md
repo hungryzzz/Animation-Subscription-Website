@@ -1,2 +1,4 @@
 # Animation-Subscription-Website
-Project of Fudan University Introducition to Database source
+
+### Introduction
+* Project of Fudan University Introducition to Database cource
