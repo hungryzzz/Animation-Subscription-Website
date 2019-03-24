@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>我的订阅表</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/main_page/assets/css/main.css" />
+	</head>
+	<body class="no-sidebar">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<h1><a href="http://127.0.0.1:8000">我的番剧表</a></h1>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a href="http://127.0.0.1:8000">首页</a></li>
+									<li><a href="/logout">退出登录</a></li>
+                  <li><i style="color: #c5c4c4; font-size: 14px">用户名：{{ user_name }}</i></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+
+						<!-- Content -->
+							<article class="box post">
+								<a href="#" class="image featured"><img src="/static/main_page/images/pic01.jpg" alt="" /></a>
+                {{ error }}
+                {% ifequal error '您尚未订阅番剧' %}
+                  <a href="/user-all-animation">查看所有番剧</a>
+                {% else %}
+                    {% ifequal flag 0 %}
+                    <header>
+                        <h3>我的订阅表</h3>
+                    </header>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>番剧名</th>
+                            <th>大陆上映时间</th>
+                            <th>大陆更新时间</th>
+                            <th>完结状态</th>
+                            <th>相关链接</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for var1 in list1 %}
+                        {% for var in list %}
+                            {% ifequal var1.ani_name var.name %}
+                            <tr>
+                                <td>{{ var.name }}</td>
+                                <td>{{ var.pub_time }}</td>
+                                <td>{{ var.update_time }}</td>
+                                <td>{{ var.state }}</td>
+                                <td><a href="{{ var.link }}">相关链接</a> </td>
+                                <td>
+                                    <a href="/cancel-sub1/{{ var.name }}" class="button small">
+                                        取消订阅
+                                    </a>
+                                </td>
+                                <td>
+                                    {% ifequal var1.comment|length 0 %}
+                                        <a href="/user-sub-comment/{{ var1.id }}" class="button small">
+                                            评论
+                                        </a>
+                                    {% else %}
+                                        <a href="/user-sub-comment/{{ var1.id }}" class="button small">
+                                            修改评论
+                                        </a>
+                                    {% endifequal %}
+                                </td>
+                            </tr>
+
+                            {% endifequal %}
+                        {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                     {% else %}
+                        {% for var in list %}
+                          <div class="row">
+                            <div class="4u 12u(mobile)">
+                                <section class="box">
+                                    <a href="#" class="image featured"><img src="{{ var.img.url }}" alt="" /></a>
+                                    <h4>{{ var.name }}</h4>
+
+                                </section>
+                            </div>
+
+                            <div class="8u 12u(mobile)">
+                                <section>
+                                    <header>
+                                        <h4>请写下你的评论</h4>
+                                    </header>
+                                <textarea id="content" rows="8" cols="100" name="comment" form="comment_form">{{ comment }}</textarea>
+                                <br>
+                                <form action="/get-user-comment" method="get" id="comment_form">
+                                    <input type="submit" value="提交" style="background-color:tomato; padding:8px 22px 8px 22px; font-size:15px">
+                                </form>
+                                </section>
+                            </div>
+                        </div>
+                        {% endfor %}
+                     {% endifequal %}
+                {% endifequal %}
+                            </article>
+
+					</div>
+				</div>
+		</div>
+
+		<!-- Scripts -->
+			<script src="/static/main_page/assets/js/jquery.min.js"></script>
+			<script src="/static/main_page/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/static/main_page/assets/js/skel.min.js"></script>
+			<script src="/static/main_page/assets/js/skel-viewport.min.js"></script>
+			<script src="/static/main_page/assets/js/util.js"></script>
+			<script src="/static/main_page/assets/js/main.js"></script>
+
+	</body>
+</html>

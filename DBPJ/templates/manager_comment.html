@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>管理-评论相关</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/main_page/assets/css/main.css" />
+	</head>
+	<body class="no-sidebar">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+            <!-- Logo -->
+						<nav id="nav">
+							<ul>
+							<li><h1 style="font-style:normal">管理</h1></li>
+							 <li><h2 style="font-style:normal">我的番剧表</h2></li>
+						 </ul>
+					  </nav>
+
+						<!-- Nav -->
+						<nav id="nav">
+								<ul>
+									<li><a href="/manager-page">首页</a></li>
+									<li><a href="/mlogout">退出登录</a></li>
+									<li><i style="color: #c5c4c4; font-size: 14px">管理员用户名：{{ manager_name }}</i></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+
+						<!-- Content -->
+							<article class="box post">
+								<a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
+                                {% ifequal message '尚无评论' %}
+                                    <h3>{{ message }}</h3>
+                                {% else %}
+								<header>
+									<h3>所有用户评论</h3>
+								</header>
+
+
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>用户名</th>
+                                                <th>番剧名</th>
+                                                <th>评论</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for var in list %}
+                                            <tr>
+                                                <td>{{ var.user_name }}</td>
+                                                <td>{{ var.ani_name }}</td>
+                                                <td>{{ var.comment }}</td>
+                                                <td><a href="/m-delete-comment2/{{ var.id }}" class="button small" >删除</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                {% endifequal %}
+							</article>
+
+					</div>
+				</div>
+
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

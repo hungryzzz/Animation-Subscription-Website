@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>管理-用户相关</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/main_page/assets/css/main.css" />
+	</head>
+	<body class="left-sidebar">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+            <!-- Logo -->
+						<nav id="nav">
+							<ul>
+							<li><h1 style="font-style:normal">管理</h1></li>
+							 <li><h2 style="font-style:normal">我的番剧表</h2></li>
+						 </ul>
+					  </nav>
+
+						<!-- Nav -->
+						<nav id="nav">
+								<ul>
+									<li><a href="/manager-page">首页</a></li>
+									<li><a href="/mlogout">退出登录</a></li>
+									<li><i style="color: #c5c4c4; font-size: 14px">管理员用户名：{{ manager_name }}</i></li>
+								</ul>
+							</nav>
+
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="4u 12u(mobile)">
+
+								<!-- Sidebar -->
+									<section class="box">
+						      	<ul class="divided">
+											<li><a href="/m-all-users">所有用户</a></li>
+											<li><a href="/m-query-users">查询用户</a></li>
+										</ul>
+									</section>
+
+							</div>
+							<div class="8u 12u(mobile) important(mobile)">
+
+								<!-- Content -->
+									<article class="box post">
+										<a href="#" class="image featured"><img src="/static/main_page/images/pic01.jpg" alt="" /></a>
+										{% ifequal flag '所有用户' %}
+                                            {{ error1 }}
+                                            {% ifnotequal error1 '尚无用户' %}
+                                                <header>
+                                                    <h3>所有用户</h3>
+                                                </header>
+										            <table>
+											            <thead>
+												            <tr>
+													            <th>用户姓名</th>
+													            <th>电子邮箱</th>
+													            <th>账号状态</th>
+                                                                <th></th>
+												            </tr>
+											            </thead>
+											        <tbody>
+                                                    {% for var in list1 %}
+												        <tr>
+													        <td>{{ var.name }}</td>
+													        <td>{{ var.email }}</td>
+													        {% ifequal var.legal 1 %}
+                                                                <td>正常</td>
+                                                                <td>
+                                                                    <a href="/m-forbid1/{{ var.id }}" class="button small">禁用</a>
+                                                                </td>
+                                                           {% else %}
+                                                                <td>被禁用</td>
+                                                                <td>
+                                                                    <a href="/m-allow1/{{ var.id }}" class="button small">恢复正常</a>
+                                                                </td>
+                                                           {% endifequal %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+										            </table>
+
+                                            {% endifnotequal %}
+                                        {% else %}
+                                            <header>
+                                                <h3>查询用户</h3>
+                                            </header>
+                                            <form action="/m-get-query-name" method="get">
+
+                                                    用户名：<input type="text" name="query_name">
+                                                    <p></p>
+                                                    <input type="submit" value="查询" style="width:100px; height: 55px">
+
+                                                <br>
+                                                {% ifnotequal error 1 %}
+                                                    <p>{{ error }}</p>
+                                                {% endifnotequal %}
+                                            </form>
+                                            <br>
+                                            {% ifequal error 1 %}
+                                                <h4>用户基本信息</h4>
+                                                <div class="table-wrapper">
+										            <table>
+											            <thead>
+												            <tr>
+													            <th>用户姓名</th>
+													            <th>电子邮箱</th>
+													            <th>账号状态</th>
+												            </tr>
+											            </thead>
+											        <tbody>
+                                                    {% for var in row %}
+												        <tr>
+													        <td>{{ var.name }}</td>
+													        <td>{{ var.email }}</td>
+													        {% ifequal var.legal 1 %}
+                                                                <td>正常</td>
+                                                                <td>
+                                                                    <a href="/m-forbid2/{{ var.id }}" class="button small">禁用</a>
+                                                                </td>
+                                                           {% else %}
+                                                                <td>被禁用</td>
+                                                                <td>
+                                                                    <a href="/m-allow2/{{ var.id }}" class="button small">恢复正常</a>
+                                                                </td>
+                                                           {% endifequal %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+										            </table>
+									            </div>
+                                               {% ifnotequal message 1 %}
+                                                   <h4 style="color: red">{{ message }}!!</h4>
+                                               {% else %}
+                                                   <h4>该用户评论</h4>
+                                                   <div class="row">
+
+										                <section>
+											                <ul class="dates" style="padding: 1.3em 0 1.3em 1em">
+                                                            {% for var in list %}
+												                <li>
+                                                                <p style="color: #6d757a; font-weight: 300; font-size:16px">{{ var.user_name }}:</p>
+													            <p style="color: #212121; font-weight: 500; font-size:18px">{{ var.comment }}</p>
+													            <br>
+													            <p style="font-style: italic; font-size: 15px; color:tomato">&lt;{{ var.ani_name }}&gt;</p>
+												                </li>
+                                                            {% endfor %}
+											                </ul>
+										                </section>
+
+
+								                    </div>
+                                               {% endifnotequal %}
+                                            {% endifequal %}
+                                        {% endifequal %}
+
+
+
+									</article>
+
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+
+		<!-- Scripts -->
+			<script src="/static/main_page/assets/js/jquery.min.js"></script>
+			<script src="/static/main_page/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/static/main_page/assets/js/skel.min.js"></script>
+			<script src="/static/main_page/assets/js/skel-viewport.min.js"></script>
+			<script src="/static/main_page/assets/js/util.js"></script>
+			<script src="/static/main_page/assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>番剧列表</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/main_page/assets/css/main.css" />
+	</head>
+	<body class="left-sidebar">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+            <!-- Logo -->
+							<h1><a href="http://127.0.0.1:8000">我的番剧表</a></h1>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a href="http://127.0.0.1:8000">首页</a></li>
+									<li><a href="/logout">退出登录</a></li>
+                  <li><i style="color: #c5c4c4; font-size: 14px">用户名：{{ user_name }}</i></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+
+				<div id="main-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="4u 12u(mobile)">
+
+								<!-- Sidebar -->
+                                <section class="box">
+                                    <a href="#" class="image featured"><img src="/static/main_page/images/pic08.jpg" alt="" /></a>
+                                    <nav id="nav">
+                                        <ul>
+                                            <li style="font-size: 18px">
+                                                <a href="/user-all-animation" style="color: white; font-style: normal; background-color: rgb(48, 154, 175); background-size: 20px">所有番剧</a>
+                                            </li>
+                                            <li style="color: #accad7; font-size: 14px">
+                                                时间索引表
+                                                <ul>
+                                                    <li><a href="/user-get-time/2018/4">2018-4</a></li>
+                                                    <li><a href="/user-get-time/2018/1">2018-1</a></li>
+                                                    <li><a href="/user-get-time/2017/10">2017-10</a></li>
+                                                    <li><a href="/user-get-time/2017/7">2017-7</a></li>
+                                                    <li><a href="/user-get-time/2017/4">2017-4</a></li>
+                                                    <li><a href="/user-get-time/2017/1">2017-1</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </section>
+
+                                <section>
+                                    <a href="#" class="image featured"><img src="/static/main_page/images/pic09.jpg" alt="" /></a>
+                                    <header>
+                                        <h3>查询番剧</h3>
+                                    </header>
+                                    <form action="/user-get-query-ani" method="get">
+                                        <input type="text" name="query_ani_name" placeholder="请输入查询番剧名">
+                                        <br>
+                                        <input type="submit" value="查询" style="background-color:tomato; padding:5px 13px 5px 13px; font-size:15px">
+                                    </form>
+                                </section>
+							</div>
+
+							<div class="8u 12u(mobile) important(mobile)">
+
+								<!-- Content -->
+									<article class="box post">
+										<a href="#" class="image featured"><img src="/static/main_page/images/pic01.jpg" alt="" /></a>
+                                        {% ifnotequal message '查询番剧' %}
+										    <header>
+                                                <h3>{{ message }}</h3>
+										    </header>
+                                            {{ error }}
+                                            {% for var1 in list1 %}
+                                            {% ifequal forloop.counter|divisibleby:'2' 0 %}
+                                            <div class="row">
+											    <div class="6u 12u(mobile)">
+												<section class="box">
+													<a href="#" class="image featured"><img src="{{ var1.img.url }}" alt="" /></a>
+													<header>
+														<h3>{{ var1.name }}</h3>
+													</header>
+													<ul>
+														<li><strong>大陆上映时间：</strong>{{ var1.pub_time }}</li>
+														<li><strong>大陆更新时间：</strong>{{ var1.update_time }}</li>
+														<li><strong>原作：</strong>{{ var1.style }}</li>
+														<li><strong>类型：</strong>{{ var1.tag1 }}, {{ var1.tag2 }}</li>
+														<li><strong>声优：</strong>{{ var1.va1 }}, {{ var1.va2 }}</li>
+														<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ var1.va3 }}, {{ var1.va4 }}</li>
+														<li><strong>更新状态：</strong>{{ var1.state }}</li>
+														<li><a href="{{ var1.link }}">相关链接</a></li>
+													</ul>
+													<footer>
+                                                    {% ifequal message '所有番剧' %}
+
+                                                       {% for var2 in list2 %}
+                                                            {% ifequal var1.name var2.ani_name %}
+														        <ul class="actions">
+															        <li><a href="/cancel-sub2/{{ var2.id }}" class="button icon fa-file-text">取消订阅</a></li>
+														        </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+
+                                                        {% for var3 in list3 %}
+                                                            {% ifequal var1.name var3.ani_name %}
+                                                                <ul class="actions">
+                                                                    <li><a href="/add-sub1/{{ var1.name }}" class="button icon fa-file-text">订阅</a></li>
+                                                                </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+                                                        <ul class="actions">
+                                                            <li><a href="/user-get-animation-comment/{{ var1.name }}" class="button alt icon fa-comment">查看评论</a></li>
+                                                        </ul>
+
+                                                    {% else %}
+
+                                                        {% for var2 in list2 %}
+                                                            {% ifequal var1.name var2.ani_name %}
+														        <ul class="actions">
+															        <li><a href="/cancel-sub3/{{ var2.id }}" class="button icon fa-file-text">取消订阅</a></li>
+														        </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+
+                                                        {% for var3 in list3 %}
+                                                            {% ifequal var3.ani_name var1.name %}
+                                                                <ul class="actions">
+                                                                    <li><a href="/add-sub2/{{ var1.name }}" class="button icon fa-file-text">订阅</a></li>
+                                                                </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+                                                         <ul class="actions">
+                                                            <li><a href="/user-get-animation-comment/{{ var1.name }}" class="button alt icon fa-comment">查看评论</a></li>
+                                                        </ul>
+
+
+                                                    {% endifequal %}
+
+
+													</footer>
+												</section>
+                                                        </div>
+
+
+                                        {% else %}
+                                                <div class="6u 12u(mobile)">
+												<section class="box">
+													<a href="#" class="image featured"><img src="{{ var1.img.url }}" alt="" /></a>
+													<header>
+														<h3>{{ var1.name }}</h3>
+													</header>
+													<ul>
+														<li><strong>大陆上映时间：</strong>{{ var1.pub_time }}</li>
+														<li><strong>大陆更新时间：</strong>{{ var1.update_time }}</li>
+														<li><strong>原作：</strong>{{ var1.style }}</li>
+														<li><strong>类型：</strong>{{ var1.tag1 }}, {{ var1.tag2 }}</li>
+														<li><strong>声优：</strong>{{ var1.va1 }}, {{ var1.va2 }}</li>
+														<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ var1.va3 }}, {{ var1.va4 }}</li>
+														<li><strong>更新状态：</strong>{{ var1.state }}</li>
+														<li><a href="{{ var1.link }}">相关链接</a></li>
+                                                        {% with flag=1 %}
+                                                        {% endwith %}
+													</ul>
+											<footer>
+                                                    {% ifequal message '所有番剧' %}
+                                                       {% for var2 in list2 %}
+                                                            {% ifequal var1.name var2.ani_name %}
+														        <ul class="actions">
+															        <li><a href="/cancel-sub2/{{ var2.id }}" class="button icon fa-file-text">取消订阅</a></li>
+														        </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+
+                                                        {% for var3 in list3 %}
+                                                            {% ifequal var3.ani_name var1.name %}
+                                                                <ul class="actions">
+                                                                    <li><a href="/add-sub1/{{ var1.name }}" class="button icon fa-file-text">订阅</a></li>
+                                                                </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+                                                         <ul class="actions">
+                                                            <li><a href="/user-get-animation-comment/{{ var1.name }}" class="button alt icon fa-comment">查看评论</a></li>
+                                                        </ul>
+
+
+                                                    {% else %}
+
+                                                        {% for var2 in list2 %}
+                                                            {% ifequal var1.name var2.ani_name %}
+														        <ul class="actions">
+															        <li><a href="/cancel-sub3/{{ var2.id }}" class="button icon fa-file-text">取消订阅</a></li>
+														        </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+
+                                                        {% for var3 in list3 %}
+                                                            {% ifequal var3.ani_name var1.name %}
+                                                                <ul class="actions">
+                                                                    <li><a href="/add-sub2/{{ var1.name }}" class="button icon fa-file-text">订阅</a></li>
+                                                                </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+                                                         <ul class="actions">
+                                                            <li><a href="/user-get-animation-comment/{{ var1.name }}" class="button alt icon fa-comment">查看评论</a></li>
+                                                        </ul>
+
+
+                                                    {% endifequal %}
+
+
+													</footer>
+												</section>
+                                                    </div>
+                                            </div>
+                                                    {% endifequal %}
+                                        {% endfor %}
+
+
+                                        {% else %}
+                                            {% for var1 in list1 %}
+                                            <div class="row">
+                                                <div class="4u 12u(mobile)">
+        								            <section class="box">
+                                                        <a href="#" class="image featured"><img src="{{ var1.img.url }}" alt="" /></a>
+													<header>
+														<h4>{{ var1.name }}</h4>
+													</header>
+                                                    <ul style="font-size:15px">
+                                                        <li><strong>大陆上映时间：</strong><br>{{ var1.pub_time }}</li>
+                                                        <li><strong>大陆更新时间：</strong><br>{{ var1.update_time }}</li>
+                                                        <li><strong>原作：</strong><br>{{ var1.style }}</li>
+                                                        <li><strong>类型：</strong><br>{{ var1.tag1 }}, {{ var1.tag2 }}</li>
+                                                        <li><strong>声优：</strong><br>{{ var1.va1 }}, {{ var1.va2 }}</li>
+                                                        <li>{{ var1.va3 }}, {{ var1.va4 }}</li>
+                                                        <li><strong>更新状态：</strong><br>{{ var1.state }}</li>
+                                                        <li><a href="{{ var1.link }}">相关链接</a></li>
+                                                    </ul>
+                                                    <footer>
+
+                                                        {% for var3 in list3 %}
+                                                            {% ifequal var1.name var3.ani_name %}
+														        <ul class="actions">
+															        <li><a href="/cancel-sub4/{{ var2.id }}" class="button small">取消订阅</a></li>
+														        </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+
+                                                        {% for var4 in list4 %}
+                                                            {% ifequal var4.ani_name var1.name %}
+                                                                <ul class="actions">
+                                                                    <li><a href="/add-sub3/{{ var1.name }}" class="button small">订阅</a></li>
+                                                                </ul>
+                                                            {% endifequal %}
+                                                        {% endfor %}
+
+
+                                                    </footer>
+        								        </section>
+        							        </div>
+
+
+        							<div class="8u 12u(mobile)">
+        								<section>
+        									<header>
+        										<h3>相关评论</h3>
+        									</header>
+        									<ul class="dates">
+                                                {% for var2 in list2 %}
+                                                    {% ifequal var2.ani_name var1.name %}
+        										        <li>
+        											        <h3>{{ var2.user_name }}</h3>
+        											        <p>{{ var2.comment }}</p>
+        										        </li>
+                                                    {% endifequal %}
+                                               {% empty %}
+                                                    <li><h3>该番剧尚无评论</h3></li>
+                                               {% endfor %}
+
+        									</ul>
+        								</section>
+        							</div>
+
+        						</div>
+                             {% endfor %}
+                                        {% endifnotequal %}
+
+									</article>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="/static/main_page/assets/js/jquery.min.js"></script>
+			<script src="/static/main_page/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/static/main_page/assets/js/skel.min.js"></script>
+			<script src="/static/main_page/assets/js/skel-viewport.min.js"></script>
+			<script src="/static/main_page/assets/js/util.js"></script>
+			<script src="/static/main_page/assets/js/main.js"></script>
+
+	</body>
+</html>

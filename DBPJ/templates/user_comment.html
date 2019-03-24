@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>评论</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/main_page/assets/css/main.css" />
+	</head>
+	<body class="no-sidebar">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<h1><a href="http://127.0.0.1:8000">我的番剧表</a></h1>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a href="http://127.0.0.1:8000">首页</a></li>
+									<li><a href="/logout">退出登录</a></li>
+									<li><i style="color: #c5c4c4; font-size: 14px">用户名：{{ user_name }}</i></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+
+						<!-- Content -->
+							<article class="box post">
+								<a href="#" class="image featured"><img src="/static/main_page/images/pic01.jpg" alt="" /></a>
+                                {% ifequal list|length 0 %}
+                                    <header><h3>暂无评论</h3></header>
+                                {% else %}
+								<header>
+									<nav id="nav">
+										<ul>
+                                            <li><a href="/user-all-comment" style="font-style:normal; color:rgb(48, 154, 175); font-weight:700; font-size: 22px">全部评论</a>
+												<ul>
+													<li><a href="/user-animation-comment">各番评论</a></li>
+												</ul>
+											</li>
+                                            <li><a href="/user-my-comment"  style="font-style: italic; font-size: 15px; color:#accad7">
+												查看我的评论
+											</a></li>
+										</ul>
+									</nav>
+								</header>
+                            {% ifnotequal message '各番评论' %}
+
+								<div class="row">
+
+									<div class="8u 12u(mobile)">
+										<section>
+											<ul class="dates" style="padding: 1.3em 0 1.3em 1em">
+                                               {% for var in list %}
+												<li>
+													<p style="color: #6d757a; font-weight: 300; font-size:16px">{{ var.user_name }}:</p>
+
+													<p style="color: #212121; font-weight: 500; font-size:18px">{{ var.comment }}</p>
+													<br>
+													<p style="font-style: italic; font-size: 15px; color:tomato">&lt;{{ var.ani_name }}&gt;</p>
+												</li>
+                                                {% endfor %}
+
+
+											</ul>
+										</section>
+									</div>
+
+								</div>
+
+                            {% else %}
+
+                                 {% for var1 in list1 %}
+                                            <div class="row">
+                                                <div class="4u 12u(mobile)">
+        								            <section class="box">
+                                                        <header>
+														<h4>{{ var1.name }}</h4>
+													    </header>
+                                                        <br>
+                                                        <a href="#" class="image featured"><img src="{{ var1.img.url }}" alt="" /></a>
+        								        </section>
+        							        </div>
+
+
+        							<div class="8u 12u(mobile)">
+        								<section>
+        									<header>
+        										<h3>相关评论</h3>
+        									</header>
+        									<ul class="dates">
+                                                {% for var2 in list %}
+                                                    {% ifequal var2.ani_name var1.name %}
+        										        <li>
+        											        <h4>{{ var2.user_name }}:</h4>
+        											        <p>{{ var2.comment }}</p>
+        										        </li>
+                                                    {% endifequal %}
+                                               {% empty %}
+                                                    <li><h3>该番剧尚无评论</h3></li>
+                                               {% endfor %}
+        									</ul>
+        								</section>
+        							</div>
+
+        						</div>
+                             {% endfor %}
+
+                            {% endifnotequal %}
+                            {% endifequal %}
+
+
+							</article>
+
+					</div>
+				</div>
+
+
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="/static/main_page/assets/js/jquery.min.js"></script>
+			<script src="/static/main_page/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/static/main_page/assets/js/skel.min.js"></script>
+			<script src="/static/main_page/assets/js/skel-viewport.min.js"></script>
+			<script src="/static/main_page/assets/js/util.js"></script>
+			<script src="/static/main_page/assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<!--
+	Identity by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>用户注册</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/register_login/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/register_login/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main">
+
+						<header>
+							<h1>我的番剧表</h1>
+							<p>一起来记录你的番剧表吧</p>
+						</header>
+
+						<hr />
+						<h2>用户注册</h2>
+						<form method="get" action="/register">
+							<div class="field">
+								<input type="text" name="user_name" id="name" placeholder="用户名" />
+							</div>
+							<div class="field">
+								<input type="password" name="user_pw1" id="pw1" placeholder="密码" />
+							</div>
+							<div class="field">
+								<input type="password" name="user_pw2" id="pw2" placeholder="确认密码" />
+							</div>
+							<div class="field">
+								<input type="email" name="user_email" id="email" placeholder="电子邮箱" />
+							</div>
+                            <div class="field">
+                                <p style="color: tomato">{{ error }}</p>
+                            </div>
+                            <ul class="actions">
+                                <li><input type="submit" value="注册"></li>
+                            </ul>
+						</form>
+						<hr />
+					</section>
+			</div>
+
+		<!-- Scripts -->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+			</script>
+
+	</body>
+</html>

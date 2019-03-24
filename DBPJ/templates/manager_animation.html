@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>管理-番剧相关</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/main_page/assets/css/main.css" />
+	</head>
+	<body class="left-sidebar">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+						<nav id="nav">
+							<ul>
+							<li><h1 style="font-style:normal">管理</h1></li>
+							 <li><h2 style="font-style:normal">我的番剧表</h2></li>
+						 </ul>
+					  </nav>
+
+						<!-- Nav -->
+						<nav id="nav">
+								<ul>
+									<li><a href="/manager-page">首页</a></li>
+									<li><a href="/mlogout">退出登录</a></li>
+									<li><i style="color: #c5c4c4; font-size: 14px">管理员用户名：{{ manager_name }}</i></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="4u 12u(mobile)">
+
+								<!-- Sidebar -->
+									<section  class="box">
+										<ul class="divided">
+											<li><a href="/m-animation">所有番剧</a></li>
+											<li><a href="/m-add-animation-form">添加番剧</a></li>
+										</ul>
+									</section>
+
+							</div>
+							<div class="8u 12u(mobile) important(mobile)">
+
+								<!-- Content -->
+									<article class="box post">
+										<a href="#" class="image featured"><img src="/static/main_page/images/pic01.jpg" alt="" /></a>
+                                        {% ifequal message '所有番剧' %}
+										    {{ error }}
+                                            {% ifnotequal error '尚无番剧' %}
+                                                <header>
+											        <h3>所有番剧</h3>
+										         </header>
+
+                                                <div>
+										            <table>
+											            <thead>
+												            <tr>
+													            <th>番剧名</th>
+													            <th>大陆上映时间</th>
+													            <th>大陆更新时间</th>
+													            <th>完结状态</th>
+                                                               <th></th>
+												            </tr>
+											            </thead>
+											        <tbody>
+                                                    {% for var in list %}
+												        <tr>
+													        <td>{{ var.name }}</td>
+													        <td>{{ var.pub_time }}</td>
+													        <td>{{ var.update_time }}</td>
+                                                           <td>{{ var.state }}</td>
+                                                            {% ifequal var.state '未完结' %}
+													        <td><a href="/modify-ani-state/{{ var.id }}" class="button small" >
+                                                                已完结
+                                                                </a>
+                                                            </td>
+                                                            {% endifequal %}
+												        </tr>
+
+                                                    {% endfor %}
+
+
+
+                                                    </tbody>
+										            </table>
+									            </div>
+
+
+                                            {% endifnotequal %}
+                                        {% else %}
+                                            <header>
+                                                <h3>添加番剧</h3>
+                                            </header>
+                                            <span>{{ mes }}</span>
+                                            <br>
+                                            <form action="/m-add-animation" method="post" enctype="multipart/form-data">
+                                                <span><input type="file" name="img"></span>
+				                                <p></p>
+                                                <span>番名：<input type="text" name="name"></span>
+                                                <br>
+                                                <span>大陆上映时间：(格式为年-月-日)
+                                                    <input type="text" name="pub_time">
+                                                </span>
+				                                <br>
+                                                <span>更新时间：<input type="text" name="update_time"></span>
+				                                <br>
+                                                <span>原作：<input type="text" name="style"></span>
+				                                <br>
+                                                <span>标签1：<input type="text" name="tag1"></span>
+				                                <br>
+                                                <span>标签2：<input type="text" name="tag2"></span>
+				                                <br>
+                                                <span>声优1：<input type="text" name="va1"></span>
+				                                <br>
+                                                <span>声优2：<input type="text" name="va2"></span>
+				                                <br>
+                                                <span>声优3：<input type="text" name="va3"></span>
+			                                    <br>
+                                                <span>声优4：<input type="text" name="va4"></span>
+				                                <br>
+                                                <span>链接：<input type="text" name="link"></span>
+				                                <br>
+                                                <span><input type="submit" value="添加" style="width:100px; height: 55px"></span>
+
+                                            </form>
+                                        {% endifequal %}
+									</article>
+
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+
+		<!-- Scripts -->
+			<script src="/static/main_page/assets/js/jquery.min.js"></script>
+			<script src="/static/main_page/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/static/main_page/assets/js/skel.min.js"></script>
+			<script src="/static/main_page/assets/js/skel-viewport.min.js"></script>
+			<script src="/static/main_page/assets/js/util.js"></script>
+			<script src="/static/main_page/assets/js/main.js"></script>
+
+	</body>
+</html>

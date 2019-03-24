@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>管理员主页</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/main_page/assets/css/main.css" />
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+           <nav id="nav">
+             <ul>
+							<li><h1 style="font-style:normal">管理</h1></li>
+              <li><h2 style="font-style:normal">我的番剧表</h2></li>
+            </ul>
+
+            </nav>
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="/manager-page">首页</a></li>
+									<li><a href="/mlogout">退出登录</a></li>
+									<li><i style="color: #c5c4c4; font-size: 14px">管理员用户名：{{ manager_name }}</i></li>
+								</ul>
+							</nav>
+
+						<!-- Intro -->
+							<section id="intro" class="container">
+								<div class="row">
+									<div class="4u 12u(mobile)">
+										<section class="first">
+											<i class="icon featured fa-cog"></i>
+											<header>
+												<h2><a href="/m-animation">番剧相关</a></h2>
+											</header>
+										</section>
+									</div>
+									<div class="4u 12u(mobile)">
+										<section class="middle">
+											<i class="icon featured alt fa-flash"></i>
+											<header>
+												<h2><a href="/m-all-users">用户相关</a></h2>
+											</header>
+										</section>
+									</div>
+									<div class="4u 12u(mobile)">
+										<section class="last">
+											<i class="icon featured alt2 fa-star"></i>
+											<header>
+												<h2><a href="/m-all-comment">评论相关</a></h2>
+											</header>
+										</section>
+									</div>
+								</div>
+							</section>
+					</div>
+				</div>
+		</div>
+
+		<!-- Scripts -->
+			<script src="/static/main_page/assets/js/jquery.min.js"></script>
+			<script src="/static/main_page/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/static/main_page/assets/js/skel.min.js"></script>
+			<script src="/static/main_page/assets/js/skel-viewport.min.js"></script>
+			<script src="/static/main_page/assets/js/util.js"></script>
+			<script src="/static/main_page/assets/js/main.js"></script>
+
+	</body>
+</html>
